@@ -25,6 +25,10 @@
             from { transform: scale(1); }
             to { transform: scale(1.2); }
         }
+        .big-heart {
+            font-size: 100px;
+            margin-top: 20px;
+        }
         button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -52,24 +56,45 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-50px); }
         }
+        .buttons {
+            margin-top: 20px;
+        }
+        .no-button {
+            margin-left: 10px;
+            background-color: gray;
+        }
+        .no-button:hover {
+            background-color: darkgray;
+        }
     </style>
 </head>
 <body>
     <h1>Happy Valentine's Day! ❤️</h1>
     <div class="heart">❤️</div>
-    <button onclick="changeTextAndShowHeart()">Click Here</button>
     <p id="message">Will you be my Valentine? 💖</p>
+    <div class="buttons">
+        <button onclick="sayYes()">Yes</button>
+        <button class="no-button" onclick="moveNoButton(this)">No</button>
+    </div>
     <div id="hearts-container"></div>
     
     <script>
-        function changeTextAndShowHeart() {
+        function sayYes() {
             document.getElementById("message").innerText = "Yay! You are the best! 💕";
             const heart = document.createElement("div");
             heart.innerHTML = "❤️";
-            heart.classList.add("small-heart");
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            document.getElementById("hearts-container").appendChild(heart);
-            setTimeout(() => heart.remove(), 2000);
+            heart.classList.add("big-heart");
+            document.body.appendChild(heart);
+        }
+
+        function moveNoButton(button) {
+            let x = Math.random() * (window.innerWidth - button.clientWidth);
+            let y = Math.random() * (window.innerHeight - button.clientHeight);
+            button.style.position = "absolute";
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+            button.innerText = "Yes";
+            button.onclick = sayYes;
         }
     </script>
 </body>
